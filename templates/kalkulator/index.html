@@ -1,10 +1,90 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Kalkulator DJOKI ID</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-sm">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <i class="fa-solid fa-calculator"></i>
+                    Kalkulator DJOKI ID
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            <i class="fa-solid fa-list fa-lg"></i>
+                            Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            <i class="fa-solid fa-gem"></i>
+                            Topup Game
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-md mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div style="text-align: center;">
+                        <h3>Hitung Harga Jasa Joki ML</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            <form action="{% url 'hitung' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleSelect1" class="form-label mt-4">Rank Sekarang</label>
+                    <select class="form-select" id="exampleSelect1" name="pilihrankawal">
+                    <option value="" disabled selected>Pilih rank awal</option>
+                        {% for rankml in rankml %}
+                        <option value="{{ rankml.urutan }}">{{ rankml.subrankml }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="exampleSelect2" class="form-label mt-4">Rank Tujuan</label>
+                    <select class="form-select" id="exampleSelect2" name="pilihranktujuan">
+                    <option value="" disabled selected>Pilih rank tujuan</option>
+                        {% for rankml in rankml %}
+                        <option value="{{ rankml.urutan }}">{{ rankml.subrankml }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary mt-4" type="submit">Hitung</button>
+                        {% if success %}
+                            <div class="alert alert-success" role="alert">
+                                Harga dari <strong>{{ rankawal }}</strong> ke <strong>{{ ranktujuan }}</strong> adalah <strong>Rp {{ hitung }}</strong>.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                </form>
+                </div>
+        </div>
+        <div class="container-fluid">
+        {% block body %}
+        {% endblock %}
+        </div>
+        <footer class="mt-auto mb-4">
+            <div class="text-center">
+                <span>
+                    Copyright &copy; <!--suppress JSCheckFunctionSignatures -->
+                    <script>document.write(new Date().getFullYear())</script> dbhdtzh
+                </span>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"> </script>
+    </body>
 </html>
