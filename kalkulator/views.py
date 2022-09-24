@@ -15,8 +15,7 @@ def hitung(request):
         hitung = 0
         awal = request.POST['pilihrankawal']
         tujuan = request.POST['pilihranktujuan']
-        print(awal)
-        print(tujuan)
+
         # loop for awal and tujuan
         for i in range(int(awal), int(tujuan)):
             hitung += rankMobileLegends.objects.get(urutan=i).harga
